@@ -1,0 +1,73 @@
+import {
+  BookOpen,
+  Brain,
+  Briefcase,
+  Calculator,
+  CodeXml,
+  Coffee,
+  Compass,
+  Dumbbell,
+  Feather,
+  FileText,
+  Flame,
+  FlaskConical,
+  Globe,
+  GraduationCap,
+  Heart,
+  Languages,
+  Leaf,
+  Lightbulb,
+  ListChecks,
+  Mountain,
+  Music,
+  NotebookPen,
+  Palette,
+  Plane,
+  Rocket,
+  Sparkles,
+  Star,
+  Target,
+  Trophy,
+  Zap,
+} from 'lucide-react';
+
+/** Page icons are Lucide icon names (the app deliberately avoids emoji). */
+export const PAGE_ICONS = {
+  'notebook-pen': NotebookPen,
+  'file-text': FileText,
+  'list-checks': ListChecks,
+  sparkles: Sparkles,
+  lightbulb: Lightbulb,
+  'book-open': BookOpen,
+  brain: Brain,
+  target: Target,
+  'graduation-cap': GraduationCap,
+  'code-xml': CodeXml,
+  calculator: Calculator,
+  'flask-conical': FlaskConical,
+  languages: Languages,
+  briefcase: Briefcase,
+  rocket: Rocket,
+  trophy: Trophy,
+  star: Star,
+  zap: Zap,
+  flame: Flame,
+  dumbbell: Dumbbell,
+  heart: Heart,
+  coffee: Coffee,
+  leaf: Leaf,
+  mountain: Mountain,
+  compass: Compass,
+  plane: Plane,
+  music: Music,
+  palette: Palette,
+  feather: Feather,
+  globe: Globe,
+};
+
+const byKind = { journal: NotebookPen, note: FileText, review: Sparkles };
+
+export function PageIcon({ icon, kind, className }) {
+  const Icon = (icon && PAGE_ICONS[icon]) || byKind[kind];
+  return <Icon className={className} strokeWidth={1.75} />;
+}

@@ -1,0 +1,410 @@
+@import 'tailwindcss';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/*
+ * Design tokens: neutral greys, hairline borders, one accent colour
+ * (switchable in Settings → Appearance) and a set of colours for goals.
+ */
+:root {
+  --bg: #f5f5f7;
+  --sidebar: #eeeef0;
+  --surface: #ffffff;
+  --surface-2: #f9f9fa;
+  --surface-3: #f1f1f3;
+  --fg: #1d1d1f;
+  --fg-2: #56565b;
+  --fg-3: #8a8a8f;
+  --line: rgb(0 0 0 / 0.075);
+  --line-strong: rgb(0 0 0 / 0.13);
+  --accent: #0a7aff;
+  --accent-hover: #0068e0;
+  --accent-contrast: #ffffff;
+  --danger: #e5352b;
+  --warning: #f08c00;
+  --success: #2fb350;
+  --overlay: rgb(20 20 24 / 0.28);
+  --menu: #ffffff;
+  --elev-sm: 0 1px 1px rgb(0 0 0 / 0.04), 0 1px 3px rgb(0 0 0 / 0.04);
+  --elev-md: 0 2px 6px rgb(0 0 0 / 0.05), 0 10px 24px -6px rgb(0 0 0 / 0.1);
+  --elev-lg: 0 0 0 0.5px rgb(0 0 0 / 0.12), 0 24px 60px -12px rgb(0 0 0 / 0.28), 0 8px 20px -8px rgb(0 0 0 / 0.12);
+
+  --c-red: #ff3b30;
+  --c-orange: #ff9500;
+  --c-yellow: #f2b800;
+  --c-green: #30b650;
+  --c-teal: #14aac4;
+  --c-blue: #0a7aff;
+  --c-indigo: #5856d6;
+  --c-purple: #af52de;
+  --c-pink: #ff2d55;
+  --c-brown: #a2845e;
+  --c-graphite: #8e8e93;
+
+  /* Data-viz series (fixed, validated for colour-blind separation; independent of the UI accent) */
+  --viz-1: #2a78d6;
+  --viz-2: #eb6834;
+  --viz-seq-0: #eef3fb;
+  --viz-seq-1: #bcd3f2;
+  --viz-seq-2: #7eaae6;
+  --viz-seq-3: #3f7fd6;
+  --viz-seq-4: #1f5bab;
+  --viz-grid: rgb(0 0 0 / 0.06);
+
+  color-scheme: light;
+}
+
+.dark {
+  --bg: #161618;
+  --sidebar: #1c1c1f;
+  --surface: #1f1f22;
+  --surface-2: #252528;
+  --surface-3: #2c2c30;
+  --fg: #f2f2f4;
+  --fg-2: #b4b4ba;
+  --fg-3: #85858c;
+  --line: rgb(255 255 255 / 0.075);
+  --line-strong: rgb(255 255 255 / 0.13);
+  --accent: #2b8fff;
+  --accent-hover: #4aa0ff;
+  --danger: #ff5248;
+  --warning: #ffa31a;
+  --success: #3ac45c;
+  --overlay: rgb(0 0 0 / 0.5);
+  --menu: #26262a;
+  --elev-sm: 0 1px 2px rgb(0 0 0 / 0.3);
+  --elev-md: 0 2px 8px rgb(0 0 0 / 0.3), 0 12px 28px -8px rgb(0 0 0 / 0.5);
+  --elev-lg: 0 0 0 0.5px rgb(255 255 255 / 0.1), 0 24px 60px -12px rgb(0 0 0 / 0.7);
+
+  --c-red: #ff453a;
+  --c-orange: #ff9f0a;
+  --c-yellow: #ffd60a;
+  --c-green: #32d74b;
+  --c-teal: #40c8e0;
+  --c-blue: #2b8fff;
+  --c-indigo: #6e6cf0;
+  --c-purple: #bf5af2;
+  --c-pink: #ff375f;
+  --c-brown: #ac8e68;
+  --c-graphite: #98989d;
+
+  --viz-1: #3987e5;
+  --viz-2: #d95926;
+  --viz-seq-0: #26282d;
+  --viz-seq-1: #1d3a63;
+  --viz-seq-2: #22569a;
+  --viz-seq-3: #3279d6;
+  --viz-seq-4: #7fb2f5;
+  --viz-grid: rgb(255 255 255 / 0.07);
+
+  color-scheme: dark;
+}
+
+/* Accent colours (Settings → Appearance) */
+[data-accent='purple'] { --accent: #9b4dca; --accent-hover: #8a3fb8; }
+[data-accent='pink'] { --accent: #e0306a; --accent-hover: #c9255d; }
+[data-accent='orange'] { --accent: #e87a00; --accent-hover: #d06d00; }
+[data-accent='green'] { --accent: #28a745; --accent-hover: #21913b; }
+[data-accent='graphite'] { --accent: #6e6e73; --accent-hover: #5a5a5f; }
+.dark[data-accent='purple'] { --accent: #bf5af2; --accent-hover: #cc73f5; }
+.dark[data-accent='pink'] { --accent: #ff4f82; --accent-hover: #ff6b95; }
+.dark[data-accent='orange'] { --accent: #ff9f0a; --accent-hover: #ffb03b; }
+.dark[data-accent='green'] { --accent: #32d74b; --accent-hover: #55de69; }
+.dark[data-accent='graphite'] { --accent: #98989d; --accent-hover: #aeaeb2; }
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-sidebar: var(--sidebar);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+  --color-fg: var(--fg);
+  --color-fg-2: var(--fg-2);
+  --color-fg-3: var(--fg-3);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-danger: var(--danger);
+  --color-warning: var(--warning);
+  --color-success: var(--success);
+  --color-menu: var(--menu);
+
+  --font-sans: 'Inter Variable', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  --font-display: 'Instrument Serif', 'Iowan Old Style', Georgia, serif;
+  --font-mono: 'SF Mono', ui-monospace, 'Cascadia Code', Menlo, Consolas, monospace;
+
+  --shadow-sm: var(--elev-sm);
+  --shadow-md: var(--elev-md);
+  --shadow-lg: var(--elev-lg);
+
+  --animate-fade-in: fade-in 160ms ease-out;
+  --animate-pop-in: pop-in 180ms cubic-bezier(0.2, 0.9, 0.3, 1.2);
+  --animate-slide-in-right: slide-in-right 260ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  --animate-rise: rise 500ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes pop-in {
+  from { opacity: 0; transform: translateY(4px) scale(0.98); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes slide-in-right {
+  from { transform: translateX(24px); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
+@keyframes rise {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes check-draw {
+  from { stroke-dashoffset: 16; }
+  to { stroke-dashoffset: 0; }
+}
+@keyframes shimmer {
+  from { background-position: -200% 0; }
+  to { background-position: 200% 0; }
+}
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: 'cv11', 'ss01', 'ss03';
+  }
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-sans);
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  ::selection {
+    background: color-mix(in srgb, var(--accent) 24%, transparent);
+  }
+  :focus-visible {
+    outline: 2px solid color-mix(in srgb, var(--accent) 70%, transparent);
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+  button {
+    cursor: default;
+  }
+  a,
+  [role='button'],
+  button:not(:disabled) {
+    cursor: pointer;
+  }
+  input::placeholder,
+  textarea::placeholder {
+    color: var(--fg-3);
+  }
+  /* Slim scrollbars */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--line-strong) transparent;
+  }
+  input[type='date']::-webkit-calendar-picker-indicator {
+    opacity: 0.5;
+  }
+}
+
+@layer components {
+  .skeleton {
+    background: linear-gradient(90deg, var(--surface-3) 25%, var(--surface-2) 50%, var(--surface-3) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.4s linear infinite;
+    border-radius: 6px;
+  }
+  .hairline {
+    box-shadow: 0 0 0 0.5px var(--line-strong);
+  }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    box-shadow: var(--elev-sm);
+  }
+  /* Menus, popovers and the command palette */
+  .floating {
+    background: var(--menu);
+  }
+  }
+
+/* Blinking block cursor shown at the end of a streaming AI answer. */
+@utility typing-caret {
+  &::after {
+    content: '';
+    display: inline-block;
+    width: 7px;
+    height: 1em;
+    margin-left: 2px;
+    vertical-align: text-bottom;
+    background: currentColor;
+    animation: blink 1s steps(1) infinite;
+  }
+}
+
+/* ---------- Markdown (AI answers) ---------- */
+.prose-chat {
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+.prose-chat > * + * { margin-top: 0.6em; }
+.prose-chat ul { list-style: disc; padding-left: 1.2em; }
+.prose-chat ol { list-style: decimal; padding-left: 1.3em; }
+.prose-chat li + li { margin-top: 0.2em; }
+.prose-chat strong { font-weight: 600; color: var(--fg); }
+.prose-chat a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+.prose-chat h1, .prose-chat h2, .prose-chat h3 { font-weight: 600; font-size: 1em; }
+.prose-chat code {
+  font-family: var(--font-mono);
+  font-size: 0.88em;
+  background: var(--surface-3);
+  padding: 0.1em 0.35em;
+  border-radius: 4px;
+}
+.prose-chat pre {
+  background: var(--surface-3);
+  padding: 10px 12px;
+  border-radius: 8px;
+  overflow-x: auto;
+  font-size: 12.5px;
+}
+.prose-chat pre code { background: none; padding: 0; }
+.prose-chat blockquote { border-left: 2px solid var(--line-strong); padding-left: 10px; color: var(--fg-2); }
+.prose-chat table { border-collapse: collapse; font-size: 13px; }
+.prose-chat th, .prose-chat td { border: 1px solid var(--line); padding: 4px 8px; }
+
+/* ---------- BlockNote editor, restyled to match the app ---------- */
+.gm-editor .bn-container[data-color-scheme] {
+  --bn-colors-editor-background: transparent;
+  --bn-colors-editor-text: var(--fg);
+  --bn-colors-menu-background: var(--surface);
+  --bn-colors-menu-text: var(--fg);
+  --bn-colors-tooltip-background: var(--surface-3);
+  --bn-colors-tooltip-text: var(--fg);
+  --bn-colors-hovered-background: var(--surface-3);
+  --bn-colors-hovered-text: var(--fg);
+  --bn-colors-selected-background: var(--accent);
+  --bn-colors-selected-text: #fff;
+  --bn-colors-border: var(--line-strong);
+  --bn-colors-side-menu: var(--fg-3);
+  --bn-colors-shadow: rgb(0 0 0 / 0.12);
+  --bn-font-family: var(--font-sans);
+  --bn-border-radius: 8px;
+}
+.gm-editor .bn-editor {
+  padding-inline: 0 !important;
+  font-size: 15.5px;
+  line-height: 1.65;
+}
+.gm-editor .bn-block-content[data-content-type='heading'] {
+  letter-spacing: -0.015em;
+}
+/* Calmer heading scale than BlockNote's default (3em / 2em / 1.3em). */
+.gm-editor .bn-block-content[data-level='1'] { --level: 1.75em; }
+.gm-editor .bn-block-content[data-level='2'] { --level: 1.4em; }
+.gm-editor .bn-block-content[data-level='3'] { --level: 1.15em; }
+/* Notion-like code blocks: soft grey panel instead of solid black. */
+.gm-editor .bn-block-content[data-content-type='codeBlock'] {
+  background-color: var(--surface-3);
+  color: var(--fg);
+  border: 1px solid var(--line);
+}
+.gm-editor .bn-block-content[data-content-type='codeBlock'] > pre {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.6;
+  padding: 28px 18px 16px;
+}
+.gm-editor .bn-block-content[data-content-type='codeBlock'] > div > select {
+  color: var(--fg-3);
+}
+.gm-editor [data-content-type='quote'] blockquote {
+  color: var(--fg-2);
+}
+.gm-editor .bn-inline-content:has(> .ProseMirror-trailingBreak:only-child)::before {
+  color: var(--fg-3);
+}
+@media (max-width: 640px) {
+  .gm-editor .bn-editor {
+    font-size: 15px;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Landing page (pages/Landing.jsx)                                    */
+/* ------------------------------------------------------------------ */
+
+/* The margin rail: a hairline down the left of the page that fills with the
+   accent colour as you read (--progress is set by useLandingScroll). It starts
+   level with the date above the headline. */
+.landing-rail {
+  position: absolute;
+  top: 108px;
+  bottom: 0;
+  left: 40px;
+  width: 1px;
+  background: var(--line);
+}
+.landing-rail::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--accent);
+  transform-origin: top;
+  transform: scaleY(var(--progress, 0));
+}
+
+/* The hero screenshot runs off the right edge of the window on wide screens. */
+@media (width >= 64rem) {
+  .bleed-right {
+    margin-right: calc(-1 * max(2rem, (100vw - 1240px) / 2 + 2rem));
+  }
+}
+
+/* Blocks marked data-reveal rise into place when they scroll into view
+   (useReveal adds .reveal-on to the page and .is-in to each block). */
+@media (prefers-reduced-motion: no-preference) {
+  .reveal-on [data-reveal] {
+    opacity: 0;
+    transform: translateY(24px);
+    transition:
+      opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1),
+      transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);
+    transition-delay: var(--delay, 0ms);
+  }
+  .reveal-on [data-reveal].is-in {
+    opacity: 1;
+    transform: none;
+  }
+}
+@media print {
+  .reveal-on [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* FAQ answers slide open instead of snapping (browsers without support just snap). */
+.faq {
+  interpolate-size: allow-keywords;
+}
+.faq details::details-content {
+  block-size: 0;
+  overflow: clip;
+  transition:
+    block-size 0.35s cubic-bezier(0.2, 0.7, 0.2, 1),
+    content-visibility 0.35s allow-discrete;
+}
+.faq details[open]::details-content {
+  block-size: auto;
+}

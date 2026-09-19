@@ -1,0 +1,15 @@
+{
+  "// why": "Editor support only (autocomplete and go-to-definition for the @ and @shared import aliases). Nothing is compiled.",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["client/src/*"],
+      "@shared/*": ["shared/*"]
+    },
+    "jsx": "react-jsx",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "target": "ES2022"
+  },
+  "include": ["client/src", "server/src", "shared", "scripts"]
+}
